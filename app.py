@@ -36,31 +36,17 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "floatGetPerson":
+    if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    # baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    # yql_query = makeYqlQuery(req)
-    # if yql_query is None:
-    #     return {}
-    # yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    # result = urlopen(yql_url).read()
-    # data = json.loads(result)
-
-    return {
-        "speech": "hey",
-        "displayText": "hey hey",
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
-
-    # q = Request("https://api.float.com/api/v1/people/305506")
-    # q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
-    # a = urlopen(q).read()
-    # data = json.loads(a)
-    #
-    # res = makeWebhookResult(data)
-    # return res
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    yql_query = makeYqlQuery(req)
+    if yql_query is None:
+        return {}
+    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    result = urlopen(yql_url).read()
+    data = json.loads(result)
+    res = makeWebhookResult(data)
+    return res
 
 
 def makeYqlQuery(req):
@@ -74,44 +60,32 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    u_name = data.get('name')
-    if u_name is None:
-        return {
-            "speech": "hey",
-            "displayText": "hey hey",
-            # "data": data,
-            # "contextOut": [],
-            "source": "apiai-weather-webhook-sample"
-        }
+    query = data.get('query')
+    if query is None:
+        return {}
 
-    # query = data.get('query')
-    # if query is None:
-    #     return {}
-    #
-    # result = query.get('results')
-    # if result is None:
-    #     return {}
-    #
-    # channel = result.get('channel')
-    # if channel is None:
-    #     return {}
-    #
-    # item = channel.get('item')
-    # location = channel.get('location')
-    # units = channel.get('units')
-    # if (location is None) or (item is None) or (units is None):
-    #     return {}
-    #
-    # condition = item.get('condition')
-    # if condition is None:
-    #     return {}
-    #
-    # # print(json.dumps(item, indent=4))
-    #
-    # speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-    #          ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    result = query.get('results')
+    if result is None:
+        return {}
 
-    speech = "The user name is " + u_name
+    channel = result.get('channel')
+    if channel is None:
+        return {}
+
+    item = channel.get('item')
+    location = channel.get('location')
+    units = channel.get('units')
+    if (location is None) or (item is None) or (units is None):
+        return {}
+
+    condition = item.get('condition')
+    if condition is None:
+        return {}
+
+    # print(json.dumps(item, indent=4))
+
+    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
 
     print("Response:")
     print(speech)
