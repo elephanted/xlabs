@@ -8,6 +8,10 @@ from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
+import urllib.parse
+import urllib.request
+import urllib.response
+
 import json
 import os
 import sys
@@ -84,11 +88,21 @@ def postTimesheet(req):
 
     username = "pescettoe@amvbbdo.com"
     password = "Welcome1!"
-    userAndPass = b64encode(bytes(username + ':' + password, "utf-8")).decode("ascii")
-    q = Request(url)
-    q.add_header("Authorization", : 'Basic %s' %  userAndPass)
-    a = urlopen(q).read()
+    top_level_url = "https://xlaboration.harvestapp.com/daily/add?of_user=1512823"
+
+    # create an authorization handler
+    p = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+    p.add_password(None, top_level_url, username, password);
+    auth_handler = urllib.request.HTTPBasicAuthHandler(p)
+    opener = urllib.request.build_opener(auth_handler)
+    urllib.request.install_opener(opener)
+    result = opener.open(top_level_url)
+    a = result.read()
     data = json.loads(a)
+
+    # userAndPass = b64encode(bytes(username + ':' + password, "utf-8")).decode("ascii")
+    # q = Request(url)
+    # q.add_header("Authorization", : 'Basic %s' %  userAndPass)
 
     res = makeWebhookTimesheet(data)
     return res
