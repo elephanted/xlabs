@@ -50,7 +50,7 @@ def processRequest(req):
 
         result = req.get("result")
         parameters = result.get("parameters")
-        user_id = parameters.get("geo-city")
+        user_id = parameters.get("phone-number")
         url = "https://api.float.com/api/v1/people/" + user_id
 
         q = Request(url)
