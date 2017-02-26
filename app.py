@@ -155,36 +155,36 @@ def makeWebhookResult(data):
 
 def makeWebhookResultTask(data):
     return
-    # task-obj = data.get(0)
-    # if taskQ is None:
-    #     return {
-    #         "speech": "Task fail",
-    #         "displayText": "Task fail",
-    #         # "data": data,
-    #         # "contextOut": [],
-    #         "source": "apiai-weather-webhook-sample"
-    #     }
-    # taskName = taskobj.get("name")
-    # if taskName is None:
-    #     return {
-    #         "speech": "Task name fail",
-    #         "displayText": "Task name fail",
-    #         # "data": data,
-    #         # "contextOut": [],
-    #         "source": "apiai-weather-webhook-sample"
-    #     }
-    # speech = "The task is " + TaskName
-    #
-    # print("Response:")
-    # print(speech)
-    #
-    # return {
-    #     "speech": speech,
-    #     "displayText": speech,
-    #     # "data": data,
-    #     # "contextOut": [],
-    #     "source": "apiai-weather-webhook-sample"
-    # }
+    task-obj = data.get(0)
+    if taskQ is None:
+        return {
+            "speech": "Task fail",
+            "displayText": "Task fail",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+    taskName = taskobj.get("name")
+    if taskName is None:
+        return {
+            "speech": "Task name fail",
+            "displayText": "Task name fail",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+    speech = "The task is " + TaskName
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
