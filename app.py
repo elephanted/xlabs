@@ -10,6 +10,7 @@ from urllib.error import HTTPError
 
 import json
 import os
+import sys
 
 from flask import Flask
 from flask import request
@@ -125,19 +126,22 @@ def makeWebhookResult(data):
     }
 
 def makeWebhookResultTask(data):
-    task = data['people'][0]['tasks'][0]['project_name']
-    # hours = data['people'][0]['tasks'][0]['hours_pd']
-    notes = data['people'][0]['tasks'][0]['task_notes']
-    if task is None:
-        return {
-            "speech": "Task fail",
-            "displayText": "Task fail",
-            # "data": data,
-            # "contextOut": [],
-            "source": "apiai-weather-webhook-sample"
-        }
+    try
+        task = data['people'][0]['tasks'][0]['project_name']
+        # hours = data['people'][0]['tasks'][0]['hours_pd']
+        notes = data['people'][0]['tasks'][0]['task_notes']
+        if task is None:
+            return {
+                "speech": "Task fail",
+                "displayText": "Task fail",
+                # "data": data,
+                # "contextOut": [],
+                "source": "apiai-weather-webhook-sample"
+            }
 
-    speech = "Today you are working on " + task + ". " + notes
+        speech = "Today you are working on " + task + ". " + notes
+    except
+        speech = sys.exc_info()[0]
 
     print("Response:")
     print(speech)
