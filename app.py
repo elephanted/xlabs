@@ -36,7 +36,7 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") = "floatGetPerson":
+    if req.get("result").get("action") == "floatGetPerson":
 
         q = Request("https://api.float.com/api/v1/people/305506")
         q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
@@ -46,7 +46,7 @@ def processRequest(req):
         res = makeWebhookResult(data)
         return res
 
-    elif req.get("result").get("action") = "getUserFloat":
+    elif req.get("result").get("action") == "getUserFloat":
 
         result = req.get("result")
         parameters = result.get("parameters")
