@@ -137,7 +137,7 @@ def makeWebhookResultTask(data):
             "source": "apiai-weather-webhook-sample"
         }
 
-    speech = "Today you are working on " + task + " for " + hours + " hours. " + notes "."
+    speech = "Today you are working on " + task + " for " + hours + " hours. " + notes
 
     print("Response:")
     print(speech)
