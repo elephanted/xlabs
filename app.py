@@ -37,13 +37,21 @@ def webhook():
 
 def processRequest(req):
     if req.get("result").get("action") == "floatGetPerson":
-        floatGetPerson(req)
+        req2 = floatGetPersonQ(req)
+        return req2
     elif req.get("result").get("action") == "getUserFloat":
-        getUserFloat(req)
+        req2 = getUserFloatQ(req)
+        return req2
     else:
-        return {}
+        return {
+            "speech": "whoops",
+            "displayText": "whoopsie",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
 
-def floatGetPerson(req):
+def floatGetPersonQ(req):
     q = Request("https://api.float.com/api/v1/people/305506")
     q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
     a = urlopen(q).read()
@@ -51,7 +59,7 @@ def floatGetPerson(req):
     res = makeWebhookResult(data)
     return res
 
-def getUserFloat(req):
+def getUserFloatQ(req):
     result = req.get("result")
     parameters = result.get("parameters")
     user_id = parameters.get("phone-number")
