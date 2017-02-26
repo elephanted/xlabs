@@ -46,21 +46,21 @@ def processRequest(req):
     # result = urlopen(yql_url).read()
     # data = json.loads(result)
 
-    return {
-        "speech": "hey",
-        "displayText": "hey hey",
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
+    # return {
+    #     "speech": "hey",
+    #     "displayText": "hey hey",
+    #     # "data": data,
+    #     # "contextOut": [],
+    #     "source": "apiai-weather-webhook-sample"
+    # }
 
-    # q = Request("https://api.float.com/api/v1/people/305506")
-    # q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
-    # a = urlopen(q).read()
-    # data = json.loads(a)
-    #
-    # res = makeWebhookResult(data)
-    # return res
+    q = Request("https://api.float.com/api/v1/people/305506")
+    q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
+    a = urlopen(q).read()
+    data = json.loads(a)
+
+    res = makeWebhookResult(data)
+    return res
 
 
 def makeYqlQuery(req):
@@ -74,7 +74,7 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    u_name = data.get('name')
+    u_name = data.get('job_title')
     if u_name is None:
         return {
             "speech": "hey",
