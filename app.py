@@ -46,6 +46,9 @@ def processRequest(req):
     elif req.get("result").get("action") == "getUserTasksToday":
         req2 = getUserTasksToday(req)
         return req2
+    elif req.get("result").get("action") == "postTimesheet":
+        req2 = postTimesheet(req)
+        return req2
     else:
         return {
             "speech": "whoops",
@@ -61,6 +64,33 @@ def floatGetPersonQ(req):
     a = urlopen(q).read()
     data = json.loads(a)
     res = makeWebhookResult(data)
+    return res
+
+def postTimesheet(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    user_id = "1512823"
+    project_id = "12947399"
+    task_id = "7285394"
+    day = "2017-2-26"
+    body = {
+          "notes": "Test API support",
+          "hours": hours,
+          "project_id": project_id,
+          "task_id": task_id,
+          "spent_at": day
+        }
+    url = "https://xlaboration.harvestapp.com/daily/add?of_user=1512823"
+
+    username = "pescettoe@amvbbdo.com"
+    password = "Welcome1!"
+    userAndPass = b64encode(bytes(username + ':' + password, "utf-8")).decode("ascii")
+    q = Request(url)
+    q.add_header("Authorization", : 'Basic %s' %  userAndPass)
+    a = urlopen(q).read()
+    data = json.loads(a)
+
+    res = makeWebhookTimesheet(data)
     return res
 
 def getUserFloatQ(req):
@@ -144,6 +174,33 @@ def makeWebhookResultTask(data):
             notes = " "
 
         speech = "Today you are working on " + task + ". " + notes
+    except:
+        speech = sys.exc_info()[0]
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+
+def makeWebhookTimesheet(data):
+    try:
+        task = data['project']
+        if task is None:
+            return {
+                "speech": "Task fail",
+                "displayText": "Task fail",
+                # "data": data,
+                # "contextOut": [],
+                "source": "apiai-weather-webhook-sample"
+            }
+
+        speech = "Your timesheet has been submitted for  " + task + ". "
     except:
         speech = sys.exc_info()[0]
 
