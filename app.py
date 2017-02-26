@@ -126,8 +126,8 @@ def makeWebhookResult(data):
 
 def makeWebhookResultTask(data):
     task = data['people'][0]['tasks'][0]['project_name']
-    hours = data['people'][0]['tasks'][0]['hours_pd']
-    notes = data['people'][0]['tasks'][0]['notes']
+    # hours = data['people'][0]['tasks'][0]['hours_pd']
+    # notes = data['people'][0]['tasks'][0]['notes']
     if task is None:
         return {
             "speech": "Task fail",
@@ -137,7 +137,7 @@ def makeWebhookResultTask(data):
             "source": "apiai-weather-webhook-sample"
         }
 
-    speech = "Today you are working on " + task + " for " + hours + " hours. " + notes
+    speech = "Today you are working on " + task 
 
     print("Response:")
     print(speech)
