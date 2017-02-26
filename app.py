@@ -125,8 +125,8 @@ def makeWebhookResult(data):
     }
 
 def makeWebhookResultTask(data):
-    peopleobj = data.get('people')
-    if peopleobj is None:
+    startdoy = data.get('start_doy')
+    if startdoy is None:
         return {
             "speech": "Task fail",
             "displayText": "Task fail",
@@ -134,25 +134,35 @@ def makeWebhookResultTask(data):
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
-    tasksobj = peopleobj.get('tasks')
-    if tasksobj is None:
-        return {
-            "speech": "Task name fail",
-            "displayText": "Task name fail",
-            # "data": data,
-            # "contextOut": [],
-            "source": "apiai-weather-webhook-sample"
-        }
-    projectname = tasksobj.get('project_name')
-    if tasksobj is None:
-        return {
-            "speech": "Project name fail",
-            "displayText": "Project name fail",
-            # "data": data,
-            # "contextOut": [],
-            "source": "apiai-weather-webhook-sample"
-        }
-    speech = "The prject name is " + project-name
+
+    # peopleobj = data.get('people')
+    # if peopleobj is None:
+    #     return {
+    #         "speech": "Task fail",
+    #         "displayText": "Task fail",
+    #         # "data": data,
+    #         # "contextOut": [],
+    #         "source": "apiai-weather-webhook-sample"
+    #     }
+    # tasksobj = peopleobj.get('tasks')
+    # if tasksobj is None:
+    #     return {
+    #         "speech": "Task name fail",
+    #         "displayText": "Task name fail",
+    #         # "data": data,
+    #         # "contextOut": [],
+    #         "source": "apiai-weather-webhook-sample"
+    #     }
+    # projectname = tasksobj.get('project_name')
+    # if tasksobj is None:
+    #     return {
+    #         "speech": "Project name fail",
+    #         "displayText": "Project name fail",
+    #         # "data": data,
+    #         # "contextOut": [],
+    #         "source": "apiai-weather-webhook-sample"
+    #     }
+    speech = "The project name is " + startdoy
 
     print("Response:")
     print(speech)
