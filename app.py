@@ -36,7 +36,32 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "floatGetPerson":
+    if req.get("result").get("action") = "floatGetPerson":
+
+        q = Request("https://api.float.com/api/v1/people/305506")
+        q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
+        a = urlopen(q).read()
+        data = json.loads(a)
+
+        res = makeWebhookResult(data)
+        return res
+
+    elif req.get("result").get("action") = "getUserFloat":
+
+        result = req.get("result")
+        parameters = result.get("parameters")
+        user_id = parameters.get("geo-city")
+        url = "https://api.float.com/api/v1/people/" + user_id
+
+        q = Request(url)
+        q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
+        a = urlopen(q).read()
+        data = json.loads(a)
+
+        res = makeWebhookResult(data)
+        return res
+
+    else
         return {}
     # baseurl = "https://query.yahooapis.com/v1/public/yql?"
     # yql_query = makeYqlQuery(req)
@@ -54,13 +79,7 @@ def processRequest(req):
     #     "source": "apiai-weather-webhook-sample"
     # }
 
-    q = Request("https://api.float.com/api/v1/people/305506")
-    q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
-    a = urlopen(q).read()
-    data = json.loads(a)
 
-    res = makeWebhookResult(data)
-    return res
 
 
 def makeYqlQuery(req):
@@ -74,7 +93,7 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    u_name = data.get('job_title')
+    u_name = data.get('name')
     if u_name is None:
         return {
             "speech": "hey",
