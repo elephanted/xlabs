@@ -49,7 +49,7 @@ def floatGetPerson(req):
     a = urlopen(q).read()
     data = json.loads(a)
     res = makeWebhookResult(data)
-        return res
+    return res
 
 def getUserFloat(req):
     result = req.get("result")
@@ -63,7 +63,7 @@ def getUserFloat(req):
     data = json.loads(a)
 
     res = makeWebhookResult(data)
-        return res
+    return res
 
 def makeYqlQuery(req):
     result = req.get("result")
