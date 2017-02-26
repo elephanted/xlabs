@@ -111,35 +111,6 @@ def makeWebhookResult(data):
             "source": "apiai-weather-webhook-sample"
         }
 
-
-
-    # query = data.get('query')
-    # if query is None:
-    #     return {}
-    #
-    # result = query.get('results')
-    # if result is None:
-    #     return {}
-    #
-    # channel = result.get('channel')
-    # if channel is None:
-    #     return {}
-    #
-    # item = channel.get('item')
-    # location = channel.get('location')
-    # units = channel.get('units')
-    # if (location is None) or (item is None) or (units is None):
-    #     return {}
-    #
-    # condition = item.get('condition')
-    # if condition is None:
-    #     return {}
-    #
-    # # print(json.dumps(item, indent=4))
-    #
-    # speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-    #          ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-
     speech = "The user name is " + u_name
 
     print("Response:")
@@ -154,8 +125,8 @@ def makeWebhookResult(data):
     }
 
 def makeWebhookResultTask(data):
-    people-obj = data.get('people')
-    if people-obj is None:
+    peopleobj = data.get('people')
+    if peopleobj is None:
         return {
             "speech": "Task fail",
             "displayText": "Task fail",
@@ -163,8 +134,8 @@ def makeWebhookResultTask(data):
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
-    tasks-obj = people-obj.get('tasks')
-    if tasks-obj is None:
+    tasksobj = peopleobj.get('tasks')
+    if tasksobj is None:
         return {
             "speech": "Task name fail",
             "displayText": "Task name fail",
@@ -172,8 +143,8 @@ def makeWebhookResultTask(data):
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
-    project-name = tasks-obj.get('project_name')
-    if tasks-obj is None:
+    projectname = tasksobj.get('project_name')
+    if tasksobj is None:
         return {
             "speech": "Project name fail",
             "displayText": "Project name fail",
