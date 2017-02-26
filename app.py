@@ -126,7 +126,7 @@ def makeWebhookResult(data):
     }
 
 def makeWebhookResultTask(data):
-    try
+    try:
         task = data['people'][0]['tasks'][0]['project_name']
         # hours = data['people'][0]['tasks'][0]['hours_pd']
         notes = data['people'][0]['tasks'][0]['task_notes']
@@ -140,7 +140,7 @@ def makeWebhookResultTask(data):
             }
 
         speech = "Today you are working on " + task + ". " + notes
-    except
+    except:
         speech = sys.exc_info()[0]
 
     print("Response:")
