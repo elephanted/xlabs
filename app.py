@@ -155,8 +155,8 @@ def makeWebhookResult(data):
 
 def makeWebhookResultTask(data):
     return
-    task-obj = data[0]['project_name']
-    if task-obj is None:
+    people-obj = data.get('people')
+    if people-obj is None:
         return {
             "speech": "Task fail",
             "displayText": "Task fail",
@@ -164,16 +164,25 @@ def makeWebhookResultTask(data):
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
-    # taskName = taskobj.get("name")
-    # if taskName is None:
-    #     return {
-    #         "speech": "Task name fail",
-    #         "displayText": "Task name fail",
-    #         # "data": data,
-    #         # "contextOut": [],
-    #         "source": "apiai-weather-webhook-sample"
-    #     }
-    speech = "The task is " + task-obj
+    tasks-obj = people-obj.get("tasks")
+    if tasks-obj is None:
+        return {
+            "speech": "Task name fail",
+            "displayText": "Task name fail",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+    project-name = tasks-obj.get("project-name")
+    if tasks-obj is None:
+        return {
+            "speech": "Project name fail",
+            "displayText": "Project name fail",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+    speech = "The prject name is " + project-name
 
     print("Response:")
     print(speech)
