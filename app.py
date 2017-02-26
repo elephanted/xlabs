@@ -154,7 +154,6 @@ def makeWebhookResult(data):
     }
 
 def makeWebhookResultTask(data):
-    return
     people-obj = data.get('people')
     if people-obj is None:
         return {
@@ -164,7 +163,7 @@ def makeWebhookResultTask(data):
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
-    tasks-obj = people-obj.get("tasks")
+    tasks-obj = people-obj.get('tasks')
     if tasks-obj is None:
         return {
             "speech": "Task name fail",
@@ -173,7 +172,7 @@ def makeWebhookResultTask(data):
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
-    project-name = tasks-obj.get("project-name")
+    project-name = tasks-obj.get('project_name')
     if tasks-obj is None:
         return {
             "speech": "Project name fail",
