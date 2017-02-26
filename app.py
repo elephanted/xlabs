@@ -61,7 +61,7 @@ def processRequest(req):
         res = makeWebhookResult(data)
         return res
 
-    else
+    else:
         return {}
     # baseurl = "https://query.yahooapis.com/v1/public/yql?"
     # yql_query = makeYqlQuery(req)
