@@ -42,6 +42,9 @@ def processRequest(req):
     elif req.get("result").get("action") == "getUserFloat":
         req2 = getUserFloatQ(req)
         return req2
+    elif req.get("result").get("action") == "getUserTasksToday":
+        req2 = getUserTasksToday(req)
+        return req2
     else:
         return {
             "speech": "whoops",
@@ -64,6 +67,20 @@ def getUserFloatQ(req):
     parameters = result.get("parameters")
     user_id = parameters.get("phone-number")
     url = "https://api.float.com/api/v1/people/" + user_id
+
+    q = Request(url)
+    q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
+    a = urlopen(q).read()
+    data = json.loads(a)
+
+    res = makeWebhookResultTask(data)
+    return res
+
+def getUserTasksToday(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    user_id = parameters.get("phone-number")
+    url = "https://api.float.com/api/v1/tasks?people_id=" + user_id
 
     q = Request(url)
     q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
@@ -93,6 +110,8 @@ def makeWebhookResult(data):
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
+
+
 
     # query = data.get('query')
     # if query is None:
@@ -134,6 +153,37 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
+def makeWebhookResultTask(data):
+    task-obj = data.get(0)
+    if taskQ is None:
+        return {
+            "speech": "Task fail",
+            "displayText": "Task fail",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+    taskName = taskobj.get("name")
+    if taskName is None:
+        return {
+            "speech": "Task name fail",
+            "displayText": "Task name fail",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+    speech = "The task is " + TaskName
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
