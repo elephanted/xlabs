@@ -127,7 +127,7 @@ def makeWebhookResult(data):
 def makeWebhookResultTask(data):
     task = data['people'][0]['tasks'][0]['project_name']
     # hours = data['people'][0]['tasks'][0]['hours_pd']
-    notes = data['people'][0]['tasks'][0]['notes']
+    notes = data['people'][0]['tasks'][0]['task_notes']
     if task is None:
         return {
             "speech": "Task fail",
