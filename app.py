@@ -125,7 +125,7 @@ def makeWebhookResult(data):
     }
 
 def makeWebhookResultTask(data):
-    startdoy = data.get('start_doy')
+    startdoy = data['start_doy']
     if startdoy is None:
         return {
             "speech": "Task fail",
