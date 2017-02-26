@@ -73,7 +73,7 @@ def getUserFloatQ(req):
     a = urlopen(q).read()
     data = json.loads(a)
 
-    res = makeWebhookResultTask(data)
+    res = makeWebhookResult(data)
     return res
 
 def getUserTasksToday(req):
@@ -87,7 +87,7 @@ def getUserTasksToday(req):
     a = urlopen(q).read()
     data = json.loads(a)
 
-    res = makeWebhookResult(data)
+    res = makeWebhookResultTask(data)
     return res
 
 def makeYqlQuery(req):
