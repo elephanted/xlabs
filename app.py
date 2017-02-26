@@ -79,7 +79,7 @@ def getUserFloatQ(req):
 def getUserTasksToday(req):
     result = req.get("result")
     parameters = result.get("parameters")
-    user_id = parameters.get("last-name")
+    user_id = parameters.get("people_id")
     url = "https://api.float.com/api/v1/tasks?people_id=" + user_id
 
     q = Request(url)
@@ -125,8 +125,10 @@ def makeWebhookResult(data):
     }
 
 def makeWebhookResultTask(data):
-    startdoy = data['people'][0]['tasks'][0]['project_name']
-    if startdoy is None:
+    task = data['people'][0]['tasks'][0]['project_name']
+    hours = data['people'][0]['tasks'][0]['hours_pd']
+    notes = data['people'][0]['tasks'][0]['notes']
+    if task is None:
         return {
             "speech": "Task fail",
             "displayText": "Task fail",
@@ -135,34 +137,7 @@ def makeWebhookResultTask(data):
             "source": "apiai-weather-webhook-sample"
         }
 
-    # peopleobj = data.get('people')
-    # if peopleobj is None:
-    #     return {
-    #         "speech": "Task fail",
-    #         "displayText": "Task fail",
-    #         # "data": data,
-    #         # "contextOut": [],
-    #         "source": "apiai-weather-webhook-sample"
-    #     }
-    # tasksobj = peopleobj.get('tasks')
-    # if tasksobj is None:
-    #     return {
-    #         "speech": "Task name fail",
-    #         "displayText": "Task name fail",
-    #         # "data": data,
-    #         # "contextOut": [],
-    #         "source": "apiai-weather-webhook-sample"
-    #     }
-    # projectname = tasksobj.get('project_name')
-    # if tasksobj is None:
-    #     return {
-    #         "speech": "Project name fail",
-    #         "displayText": "Project name fail",
-    #         # "data": data,
-    #         # "contextOut": [],
-    #         "source": "apiai-weather-webhook-sample"
-    #     }
-    speech = "The project name is " + startdoy
+    speech = "Today you are working on " + task + " for " + hours + " hours. " + notes "."
 
     print("Response:")
     print(speech)
