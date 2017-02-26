@@ -37,50 +37,33 @@ def webhook():
 
 def processRequest(req):
     if req.get("result").get("action") == "floatGetPerson":
-
-        q = Request("https://api.float.com/api/v1/people/305506")
-        q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
-        a = urlopen(q).read()
-        data = json.loads(a)
-
-        res = makeWebhookResult(data)
-        return res
-
+        floatGetPerson(req)
     elif req.get("result").get("action") == "getUserFloat":
-
-        result = req.get("result")
-        parameters = result.get("parameters")
-        user_id = parameters.get("phone-number")
-        url = "https://api.float.com/api/v1/people/" + user_id
-
-        q = Request(url)
-        q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
-        a = urlopen(q).read()
-        data = json.loads(a)
-
-        res = makeWebhookResult(data)
-        return res
-
+        getUserFloat(req)
     else:
         return {}
-    # baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    # yql_query = makeYqlQuery(req)
-    # if yql_query is None:
-    #     return {}
-    # yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    # result = urlopen(yql_url).read()
-    # data = json.loads(result)
 
-    # return {
-    #     "speech": "hey",
-    #     "displayText": "hey hey",
-    #     # "data": data,
-    #     # "contextOut": [],
-    #     "source": "apiai-weather-webhook-sample"
-    # }
+def floatGetPerson(req):
+    q = Request("https://api.float.com/api/v1/people/305506")
+    q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
+    a = urlopen(q).read()
+    data = json.loads(a)
+    res = makeWebhookResult(data)
+return res
 
+def getUserFloat(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    user_id = parameters.get("phone-number")
+    url = "https://api.float.com/api/v1/people/" + user_id
 
+    q = Request(url)
+    q.add_header("Authorization", "c40733f4f634d7063e1c1beaa3beb263abf319df")
+    a = urlopen(q).read()
+    data = json.loads(a)
 
+    res = makeWebhookResult(data)
+return res
 
 def makeYqlQuery(req):
     result = req.get("result")
