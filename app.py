@@ -53,6 +53,9 @@ def processRequest(req):
     elif req.get("result").get("action") == "postTimesheet":
         req2 = postTimesheet(req)
         return req2
+    elif req.get("result").get("action") == "getPeopleHarvest":
+        req2 = getPeopleHarvest(req)
+        return req2
     else:
         return {
             "speech": "whoops",
@@ -68,6 +71,27 @@ def floatGetPersonQ(req):
     a = urlopen(q).read()
     data = json.loads(a)
     res = makeWebhookResult(data)
+    return res
+
+def getPeopleHarvest(req):
+    result = req.get("result")
+    username = "pescettoe@amvbbdo.com"
+    password = "Welcome1!"
+    top_level_url = "https://xlaboration.harvestapp.com/people/1514150"
+
+    # create an authorization handler
+    p = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+    p.add_password(None, top_level_url, username, password);
+    auth_handler = urllib.request.HTTPBasicAuthHandler(p)
+    opener = urllib.request.build_opener(auth_handler)
+    opener.add_header("Accept", "application/json")
+    opener.add_header("Content-Type", "application/json")
+    urllib.request.install_opener(opener)
+    result = opener.open(top_level_url)
+    a = result.read()
+    data = json.loads(a)
+
+    res = makeWebhookHarvestPeople(data)
     return res
 
 def postTimesheet(req):
@@ -147,6 +171,30 @@ def makeYqlQuery(req):
 
 def makeWebhookResult(data):
     u_name = data.get('name')
+    if u_name is None:
+        return {
+            "speech": "hey",
+            "displayText": "hey hey",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+
+    speech = "The user name is " + u_name
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+
+def makeWebhookHarvestPeople(data):
+    u_name = data['user']['email']
     if u_name is None:
         return {
             "speech": "hey",
