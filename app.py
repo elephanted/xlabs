@@ -74,24 +74,38 @@ def floatGetPersonQ(req):
     return res
 
 def getPeopleHarvest(req):
-    result = req.get("result")
-    username = "pescettoe@amvbbdo.com"
-    password = "Welcome1!"
-    top_level_url = "https://xlaboration.harvestapp.com/people/1514150"
+    try:
+        result = req.get("result")
+        username = "pescettoe@amvbbdo.com"
+        password = "Welcome1!"
+        top_level_url = "https://xlaboration.harvestapp.com/people/1514150"
 
-    # create an authorization handler
-    p = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    p.add_password(None, top_level_url, username, password);
-    auth_handler = urllib.request.HTTPBasicAuthHandler(p)
-    opener = urllib.request.build_opener(auth_handler)
-    opener.add_header("Accept", "application/json")
-    opener.add_header("Content-Type", "application/json")
-    urllib.request.install_opener(opener)
-    result = opener.open(top_level_url)
-    a = result.read()
-    data = json.loads(a)
+        # create an authorization handler
+        p = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+        p.add_password(None, top_level_url, username, password);
+        auth_handler = urllib.request.HTTPBasicAuthHandler(p)
+        opener = urllib.request.build_opener(auth_handler)
+        opener.add_header("Accept", "application/json")
+        opener.add_header("Content-Type", "application/json")
+        urllib.request.install_opener(opener)
+        result = opener.open(top_level_url)
+        a = result.read()
+        data = json.loads(a)
+        res = makeWebhookHarvestPeople(data)
+    except:
+        speech = sys.exc_info()[0]
+        print("Response:")
+        print(speech)
+        return {
+            "speech": speech,
+            "displayText": speech,
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
 
-    res = makeWebhookHarvestPeople(data)
+
+
     return res
 
 def postTimesheet(req):
