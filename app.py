@@ -82,7 +82,7 @@ def getPeopleHarvest(req):
         q.add_header("Content-Type", "application/json")
         a = urlopen(q).read()
         data = json.loads(a)
-        res = makeWebhookResult(data)
+        res = makeWebhookHarvestPeople(data)
         return res
     except:
         speech = sys.exc_info()[0]
