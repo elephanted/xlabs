@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 import urllib.parse
 import urllib.request
 import urllib.response
+import traceback
 
 import json
 import os
@@ -92,13 +93,15 @@ def getPeopleHarvest(req):
         a = result.read()
         data = json.loads(a)
         res = makeWebhookHarvestPeople(data)
+        return res
     except:
         speech = sys.exc_info()[0]
+        displayText = traceback.print_exc()
         print("Response:")
         print(speech)
         return {
             "speech": speech,
-            "displayText": speech,
+            "displayText": displayText,
             # "data": data,
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
@@ -106,7 +109,7 @@ def getPeopleHarvest(req):
 
 
 
-    return res
+
 
 def postTimesheet(req):
     result = req.get("result")
