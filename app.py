@@ -76,38 +76,36 @@ def floatGetPersonQ(req):
 
 def getPeopleHarvest(req):
     try:
-        result = req.get("result")
-        username = "pescettoe@amvbbdo.com"
-        password = "Welcome1!"
-        top_level_url = "https://xlaboration.harvestapp.com/people/1514150"
+        # result = req.get("result")
+        # username = "pescettoe@amvbbdo.com"
+        # password = "Welcome1!"
+        # top_level_url = "https://xlaboration.harvestapp.com/people/1514150"
+        #
+        # # create an authorization handler
+        # p = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+        # p.add_password(None, top_level_url, username, password);
+        # auth_handler = urllib.request.HTTPBasicAuthHandler(p)
+        # opener = urllib.request.build_opener(auth_handler)
+        # opener.addheaders = [("Authorization", "Basic cGVzY2V0dG9lQGFtdmJiZG8uY29tOldlbGNvbWUxIQ==")]
+        # opener.addheaders = [("Accept", "application/json")]
+        # opener.addheaders = [("Content-Type", "application/json")]
+        # # opener.add_header("Accept", "application/json")
+        # # opener.add_header("Content-Type", "application/json")
+        # urllib.request.install_opener(opener)
+        # result = opener.open(top_level_url)
+        # a = result.read()
+        # data = json.loads(a)
+        # res = makeWebhookHarvestPeople(data)
+        # return res
 
-        # create an authorization handler
-        p = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-        p.add_password(None, top_level_url, username, password);
-        auth_handler = urllib.request.HTTPBasicAuthHandler(p)
-        opener = urllib.request.build_opener(auth_handler)
-        opener.addheaders = [("Authorization", "Basic cGVzY2V0dG9lQGFtdmJiZG8uY29tOldlbGNvbWUxIQ==")]
-        opener.addheaders = [("Accept", "application/json")]
-        opener.addheaders = [("Content-Type", "application/json")]
-        # opener.add_header("Accept", "application/json")
-        # opener.add_header("Content-Type", "application/json")
-        urllib.request.install_opener(opener)
-        result = opener.open(top_level_url)
-        a = result.read()
+        q = Request("https://xlaboration.harvestapp.com/people/1514150")
+        q.add_header("Authorization", "Basic cGVzY2V0dG9lQGFtdmJiZG8uY29tOldlbGNvbWUxIQ==")
+        q.add_header("Accept", "application/json")
+        q.add_header("Content-Type", "application/json")
+        a = urlopen(q).read()
         data = json.loads(a)
-        res = makeWebhookHarvestPeople(data)
+        res = makeWebhookResult(data)
         return res
-
-        # Create an OpenerDirector with support for Basic HTTP Authentication...
-        auth_handler = urllib.request.HTTPBasicAuthHandler()
-        auth_handler.add_password(realm='PDQ Application',
-                                  uri='https://mahler:8092/site-updates.py',
-                                  user='klem',
-                                  passwd='kadidd!ehopper')
-        opener = urllib.request.build_opener(auth_handler)
-        # ...and install it globally so it can be used with urlopen.
-        urllib.request.install_opener(opener)
-        urllib.request.urlopen('http://www.example.com/login.html')
 
     except:
         speech = sys.exc_info()[0]
