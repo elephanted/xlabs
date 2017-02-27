@@ -200,7 +200,6 @@ def makeWebhookResult(data):
 
 def makeWebhookHarvestPeople(data):
     u_name = data['user']['email']
-    testd = data['message']
     if u_name is None:
         return {
             "speech": testd,
