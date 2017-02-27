@@ -85,8 +85,8 @@ def getPeopleHarvest(req):
         p.add_password(None, top_level_url, username, password);
         auth_handler = urllib.request.HTTPBasicAuthHandler(p)
         opener = urllib.request.build_opener(auth_handler)
-        opener.add_header("Accept", "application/json")
-        opener.add_header("Content-Type", "application/json")
+        # opener.add_header("Accept", "application/json")
+        # opener.add_header("Content-Type", "application/json")
         urllib.request.install_opener(opener)
         result = opener.open(top_level_url)
         a = result.read()
