@@ -98,20 +98,20 @@ def getPeopleHarvest(req):
         }
 
 def postTimesheet(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    user_id = "1512823"
-    project_id = "12947399"
-    task_id = "7285394"
-    day = "2017-2-26"
-    body = {
-          "notes": "Test API support",
-          "hours": hours,
-          "project_id": project_id,
-          "task_id": task_id,
-          "spent_at": day
-        }
     try:
+        result = req.get("result")
+        user_id = "1512823"
+        project_id = "12947399"
+        task_id = "7285394"
+        dayq = "2017-2-27"
+        body = {
+              "notes": "Test API support",
+              "hours": hours,
+              "project_id": project_id,
+              "task_id": task_id,
+              "spent_at": dayq
+            }
+
         q = Request("https://xlaboration.harvestapp.com/people/1514150", body)
         q.add_header("Authorization", "Basic cGVzY2V0dG9lQGFtdmJiZG8uY29tOldlbGNvbWUxIQ==")
         q.add_header("Accept", "application/json")
@@ -133,8 +133,6 @@ def postTimesheet(req):
             "source": "apiai-weather-webhook-sample"
         }
 
-    res = makeWebhookTimesheet(data)
-    return res
 
 def getUserFloatQ(req):
     result = req.get("result")
