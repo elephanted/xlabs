@@ -104,9 +104,10 @@ def postTimesheet(req):
         project_id = "12947399"
         task_id = "7285394"
         dayq = "2017-2-27"
+        hoursq = "3"
         body = {
               "notes": "Test API support",
-              "hours": hours,
+              "hours": hoursq,
               "project_id": project_id,
               "task_id": task_id,
               "spent_at": dayq
