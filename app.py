@@ -113,7 +113,7 @@ def postTimesheet(req):
               "spent_at": dayq
             }
         params = json.dumps(body).encode('utf8')
-        q = Request("https://xlaboration.harvestapp.com/people/1512823", data=params)
+        q = Request("https://xlaboration.harvestapp.com/daily/add?of_user=1512823", data=params)
         q.add_header("Authorization", "Basic cGVzY2V0dG9lQGFtdmJiZG8uY29tOldlbGNvbWUxIQ==")
         q.add_header("Accept", "application/json")
         q.add_header("Content-Type", "application/json")
